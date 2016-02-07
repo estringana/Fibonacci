@@ -9,29 +9,33 @@ use Acme\Printables\Printable;
 
 class App
 {
-	static protected $_db = null;
-	static protected $_generator = null;
+    static protected $_db = null;
+    static protected $_generator = null;
 
-	public static function start(){
-		self::$_db = new RedisDB();
-		//Uncomment the next line out for using the file system as DB
-		// self::$_db = new FileSystemDB();
+    public static function start()
+    {
+        self::$_db = new RedisDB();
+        //Uncomment the next line out for using the file system as DB
+        // self::$_db = new FileSystemDB();
 
-		self::$_generator = new Fibonacci(self::$_db);
-	}
+        self::$_generator = new Fibonacci(self::$_db);
+    }
 
-	public static function printAll(Printable $printable){
-		return $printable->toString(self::$_db->getAll());
-	}
+    public static function printAll(Printable $printable)
+    {
+        return $printable->toString(self::$_db->getAll());
+    }
 
-	public static function generateUpTo($position) {
-		for( $i = 1; $i <= $position; $i++){
-			self::$_generator->generate($i);
-		}
-	}
+    public static function generateUpTo($position)
+    {
+        for ( $i = 1; $i <= $position; $i++) {
+            self::$_generator->generate($i);
+        }
+    }
 
-	public static function reset(){
-		self::$_db->reset();
-	}
+    public static function reset()
+    {
+        self::$_db->reset();
+    }
 
 }

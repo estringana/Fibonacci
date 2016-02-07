@@ -45,7 +45,9 @@ It has been used the adapter pattern in order to decopuple the DB used from the 
 1. Redis (Default one)
 2. File system
 
-The file system isn't efficent but it has been added in order to prove the benefit of using the Adaptor pattern. If you want to see the app running using the File system go to the class App and within the start method uncomment out the following line:
+I have set redis as the default since it fits the purpose of the application saving key-pair values.
+
+The file system method isn't efficent but it has been added in order to prove the benefit of using the Adaptor pattern. If you want to see the app running using the File system go to the class App and within the start method uncomment out the following line:
 ```
 //Uncomment the next line out for using the file system as DB
 // self::$_db = new FileSystemDB();
