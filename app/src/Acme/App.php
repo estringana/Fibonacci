@@ -16,11 +16,22 @@ class App
 		self::$_db = new RedisDB();
 		//Uncomment the next line out for using the file system as DB
 		// self::$_db = new FileSystemDB();
+
 		self::$_generator = new Fibonacci(self::$_db);
 	}
 
 	public static function printAll(Printable $printable){
 		return $printable->toString(self::$_db->getAll());
+	}
+
+	public static function generateUpTo($position) {
+		for( $i = 1; $i <= $position; $i++){
+			self::$_generator->generate($i);
+		}
+	}
+
+	public static function reset(){
+		self::$_db->reset();
 	}
 
 }
