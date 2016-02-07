@@ -2,6 +2,13 @@
 
 namespace Acme\DBAdaptors;
 
+/**
+ * The following class implement the DB layer by using redis as DB
+ * @category Free_Time
+ * @package Fibonacci
+ * @license http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @author Alejandro Estringana <estringana@gmail.com>
+ */
 class RedisDB implements DBAdapter
 {
     protected $_client;

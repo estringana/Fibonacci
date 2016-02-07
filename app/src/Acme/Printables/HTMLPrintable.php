@@ -2,6 +2,13 @@
 
 namespace Acme\Printables;
 
+/**
+ * HTML representation of the fibbonacci numbers
+ * @category Free time
+ * @package Fibonacci
+ * @license http://www.opensource.org/licenses/bsd-license.php BSD License
+ * @author Alejandro Estringana <estringana@gmail.com>
+ */
 class HTMLPrintable implements Printable
 {
     public function rowToString($position, $value)
