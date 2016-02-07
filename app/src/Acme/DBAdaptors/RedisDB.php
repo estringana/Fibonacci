@@ -39,6 +39,8 @@ class RedisDB implements DBAdapter {
 			$result[$key] = $this->get($key);
 		}
 
+		ksort($result);
+
 		return $result;
 	}
 }
