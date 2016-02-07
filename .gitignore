@@ -1,0 +1,5 @@
+.phpintel/*
+.vagrant/*
+app/vendor/*
+app/bin/*
+app/testFileSystem/*
