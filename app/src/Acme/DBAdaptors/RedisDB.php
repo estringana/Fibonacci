@@ -25,7 +25,15 @@ class RedisDB implements DBAdapter
     {
         $this->_client = new \Predis\Client();
     }
-
+    
+    /**
+    * Save the value into the position specified
+    * 
+    * @param int $position of the fibonacci numbers we want to save
+    * @param int $value of the fibonacci numbers we want to save
+    *
+    * @return void
+    */
     public function save($position, $value)
     {
         $this->_client->set($position, $value);
@@ -74,6 +82,28 @@ class RedisDB implements DBAdapter
     }
 
     /**
+    * Get all the keys saved on redis
+    *
+    * @return array
+    */
+    protected function _getAllKeys()
+    {
+        return $this->_client->keys('*');
+    }
+
+    /**
+    * Sort an array given
+    *
+    * @return array
+    */
+    protected function _sortArray($array) 
+    {
+        ksort($array);
+
+        return $array;
+    }
+
+    /**
     * Return all the values on the db
     *
     * @return array
@@ -82,13 +112,13 @@ class RedisDB implements DBAdapter
     {
         $result = array();
 
-        $values = $this->_client->keys('*');
+        $values = $this->_getAllKeys();
 
         foreach ($values as $key) {
             $result[$key] = $this->get($key);
         }
 
-        ksort($result);
+        $result = $this->_sortArray($result);
 
         return $result;
     }

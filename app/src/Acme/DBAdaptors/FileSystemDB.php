@@ -93,16 +93,27 @@ class FileSystemDB implements DBAdapter
         return $this->_path_to_values.$position;
     }
 
+     /**
+     * Check if the path is a hidden file/directory
+     * 
+    * @param DirectoryIterator $filepath to be checked
+    *
+    * @return boolean
+    */
+    protected function _isHidden(\DirectoryIterator $filepath)
+    {
+        return $filepath->isDot();
+    }
+
    /**
     * Remove all the fibonacci numbers generated
     * 
-    *
     * @return void
     */
     public function reset()
     {
         foreach (new \DirectoryIterator($this->_path_to_values) as $fileInfo) {
-            if (! $fileInfo->isDot()) {
+            if (! $this->_isHidden($fileInfo)) {
                 unlink($fileInfo->getPathname());
             }
         }
@@ -118,7 +129,7 @@ class FileSystemDB implements DBAdapter
         $array_result = array();
 
         foreach (new \DirectoryIterator($this->_path_to_values) as $fileInfo) {
-            if (! $fileInfo->isDot()) {
+            if (! $this->_isHidden($fileInfo)) {
                 $array_result[$fileInfo->getBasename()]
                     = file_get_contents($fileInfo->getPathname());
             }

@@ -11,7 +11,6 @@ namespace Acme\Exceptions\DB;
  */
 class PositionNotFoundException extends \Exception
 {
-
     /**
     * Default constructor
     *
