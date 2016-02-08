@@ -11,6 +11,12 @@ namespace Acme\Exceptions\DB;
  */
 class PositionNotFoundException extends \Exception
 {
+
+    /**
+    * Default constructor
+    *
+    * @return void
+    */	
     public function __construct()
     {
         parent::__construct('Position not found');

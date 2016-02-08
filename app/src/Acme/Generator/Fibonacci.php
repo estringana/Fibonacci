@@ -14,18 +14,42 @@ use Acme\DBAdaptors\DBAdapter;
  */
 class Fibonacci
 { 
+    /**
+     * @var DBAdapter
+     */
     protected $_db;    
 
+    /**
+    * Constructor
+    *
+    * @param DBAdapter $db DB we want to use for this instace of the application
+    * 
+    * @return void
+    */
     function __construct(DBAdapter $db)
     {
         $this->_db = $db;
     }    
 
+   /**
+   * Check if the position is valid
+   * 
+   * @param int $position of the fibonacci numbers we want to check
+   *
+   * @return boolean
+   */
     protected function isValidPosition($position)
     {
         return $position > 0;
     }
 
+    /**
+   * Generates the fibonacci number specified
+   * 
+   * @param int $positionToGenerate of the fibonacci numbers we want to generate
+   *
+   * @return boolean
+   */
     protected function _generate($positionToGenerate)
     {
         if ($positionToGenerate > 2 ) {
@@ -45,6 +69,13 @@ class Fibonacci
         }
     }    
 
+    /**
+   * Checks if the position exists and if not it generates the fibonacci number specified
+   * 
+   * @param int $position of the fibonacci numbers we want to generate
+   *
+   * @return void
+   */
     protected function _generateIfNotExist($position)
     {
         if (! $this->_db->exists($position) ) {
@@ -52,6 +83,13 @@ class Fibonacci
         }
     }    
 
+   /**
+   * Public method for generating fibonnaci numer. This method checks if the position is valid
+   * 
+   * @param int $positionToGenerate of the fibonacci numbers we want to generate
+   *
+   * @return int
+   */
     public function generate($positionToGenerate)
     {
         $result = false;    

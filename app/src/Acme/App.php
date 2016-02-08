@@ -16,9 +16,21 @@ use Acme\Printables\Printable;
  */
 class App
 {
+    /**
+     * @var \Acme\DBAdaptors\DBAdapter
+     */
     static protected $_db = null;
+
+    /**
+     * @var \Acme\Generator\Fibonacci
+     */
     static protected $_generator = null;
 
+    /**
+    * Initializes the application
+    *
+    *  @return void
+    */
     public static function start()
     {
         self::$_db = new RedisDB();
@@ -28,11 +40,25 @@ class App
         self::$_generator = new Fibonacci(self::$_db);
     }
 
+   /**
+    * Print all the fibonacci numbers using a printable specified
+    *
+    * @param Printable $printable which will be charge of transforms value on the output specified
+    * 
+    *  @return string
+    */
     public static function printAll(Printable $printable)
     {
         return $printable->toString(self::$_db->getAll());
     }
 
+    /**
+    * Generates fibonacci numbers up to the position specified
+    *
+    * @param int $position position up to the one we want to generate
+    * 
+    *  @return void
+    */
     public static function generateUpTo($position)
     {
         for ( $i = 1; $i <= $position; $i++) {
@@ -40,6 +66,11 @@ class App
         }
     }
 
+   /**
+    * Reset all the values generated
+    *  
+    *  @return void
+    */
     public static function reset()
     {
         self::$_db->reset();

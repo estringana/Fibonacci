@@ -11,8 +11,16 @@ namespace Acme\DBAdaptors;
  */
 class RedisDB implements DBAdapter
 {
+    /**
+     * @var \Predis\Client()
+     */
     protected $_client;
 
+    /**
+    * Default constructor
+    *
+    * @return void
+    */
     function __construct()
     {
         $this->_client = new \Predis\Client();
@@ -23,11 +31,28 @@ class RedisDB implements DBAdapter
         $this->_client->set($position, $value);
     }
 
+    /**
+    * Check if the position exists on the DB
+    * 
+    * @param int $position of the fibonacci numbers we want to check
+    *
+    *
+    * @return boolean
+    */
     public function exists($position)
     {
         return $this->_client->exists($position);
     }
 
+   /**
+    * Get the value on the position specified
+    * 
+    * @param int $position of the fibonacci numbers we want to get
+    *
+    * @throws \Acme\Exceptions\DB\PositionNotFoundException()
+    *
+    * @return sring
+    */
     public function get($position)
     {
         if (! $this->exists($position) ) {
@@ -37,11 +62,22 @@ class RedisDB implements DBAdapter
         return $this->_client->get($position);
     }
 
+   /**
+    * Remove all the fibonacci numbers generated
+    * 
+    *
+    * @return void
+    */
     public function reset()
     {
          $this->_client->flushall();
     }
 
+    /**
+    * Return all the values on the db
+    *
+    * @return array
+    */
     public function getAll()
     {
         $result = array();
